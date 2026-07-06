@@ -983,6 +983,20 @@ button {
   padding-top: 1.5rem;
   border-top: 1px solid var(--border);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.view-counter {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.view-counter #view-count {
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
 }
 
 .copyright {

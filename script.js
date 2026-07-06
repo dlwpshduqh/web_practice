@@ -149,6 +149,29 @@
     }
   }
 
+  function initViewCounter() {
+    const countEl = document.getElementById("view-count");
+    if (!countEl) return;
+
+    const counterKey = "imcamp-web-practice-bowen-visits";
+    const apiUrl =
+      "https://countapi.mileshilliard.com/api/v1/hit/" + counterKey;
+
+    fetch(apiUrl)
+      .then(function (res) {
+        if (!res.ok) throw new Error("counter request failed");
+        return res.json();
+      })
+      .then(function (data) {
+        if (data && data.value != null) {
+          countEl.textContent = Number(data.value).toLocaleString("zh-Hant");
+        }
+      })
+      .catch(function () {
+        countEl.textContent = "—";
+      });
+  }
+
   function initMap() {
     const mapEl = document.getElementById("leaflet-map");
     if (!mapEl || typeof L === "undefined") return;
@@ -209,6 +232,7 @@
     initSmoothScroll();
     initReveal();
     initYear();
+    initViewCounter();
     initMap();
   });
 })();

@@ -9,6 +9,17 @@
     />
     <title>李子秀 | Portfolio</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -98,6 +109,23 @@
               <span class="stat-label">可及性優先</span>
             </li>
           </ul>
+        </div>
+      </section>
+
+      <section id="map" class="section section-map">
+        <div class="container">
+          <header class="section-header section-header--center reveal">
+            <p class="section-label">Location</p>
+            <h2>所在地</h2>
+            <p class="section-lead">台北 101 周邊地圖，歡迎預約面談或線下交流。</p>
+          </header>
+          <div
+            class="map-container reveal"
+            role="region"
+            aria-label="地圖：台北 101 位置"
+          >
+            <div id="leaflet-map" class="map"></div>
+          </div>
         </div>
       </section>
 

@@ -149,6 +149,57 @@
     }
   }
 
+  function initMap() {
+    const mapEl = document.getElementById("leaflet-map");
+    if (!mapEl || typeof L === "undefined") return;
+
+    const taipei101 = [25.0339, 121.5645];
+
+    delete L.Icon.Default.prototype._getIconUrl;
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl:
+        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+      iconUrl:
+        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+      shadowUrl:
+        "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+    });
+
+    const map = L.map(mapEl).setView(taipei101, 14);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    L.marker(taipei101).addTo(map);
+
+    const container = mapEl.closest(".map-container");
+    if (container) {
+      const resizeMap = function () {
+        map.invalidateSize();
+      };
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                resizeMap();
+                observer.disconnect();
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+        observer.observe(container);
+      } else {
+        window.addEventListener("load", resizeMap);
+      }
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initTheme();
     if (themeToggle) {
@@ -158,5 +209,6 @@
     initSmoothScroll();
     initReveal();
     initYear();
+    initMap();
   });
 })();
